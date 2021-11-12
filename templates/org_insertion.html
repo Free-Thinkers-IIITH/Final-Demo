@@ -1,0 +1,84 @@
+{% extends "layout.html" %} {% block content %}
+<h1>Insert a new paper</h1>
+<br>
+<form action="/org_insertion" method="post">
+
+    <!-- 2 column grid layout with text inputs for the first and last names -->
+    <div class="row mb-4">
+        <div class="col">
+            <div class="form-outline">
+                <input type="text" id="title" class="form-control" name="title" />
+                <label class="form-label" for="form6Example1">Title</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-outline">
+                <input type="text" id="authors" class="form-control" name="authors" />
+                <label class="form-label" for="form6Example2">Authors (comma seperated)</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Text input -->
+    <div class="form-outline mb-4">
+        <input type="text" id="venue" class="form-control" name="venue" />
+        <label class="form-label" for="form6Example3">Venue</label>
+    </div>
+
+    <!-- Text input -->
+    <div class="form-outline mb-4">
+        <input type="number" id="year" class="form-control" name="year" />
+        <label class="form-label" for="form6Example4">Year</label>
+
+        <!-- <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker" inline="true">
+            <input placeholder="Select date" type="text" id="example" class="form-control">
+            <label for="example">Try me...</label>
+            <i class="fas fa-calendar input-prefix"></i>
+        </div> -->
+    </div>
+
+    <!-- Email input -->
+    <div class="form-outline mb-4">
+        <input type="text" id="access" class="form-control" name="access" />
+        <label class="form-label" for="form6Example5">Access</label>
+    </div>
+
+    <div class="form-outline mb-4">
+        <input type="url" id="url" class="form-control" name="url" />
+        <label class="form-label" for="form6Example6">URL</label>
+    </div>
+
+    <div class="form-outline mb-4">
+        <input type="text" id="rank" class="form-control" name="rank" />
+        <label class="form-label" for="form6Example7">Rank</label>
+    </div>
+
+    <div class="form-outline mb-4">
+        <input type="text" id="field" class="form-control" name="field" />
+        <label class="form-label" for="form6Example8">Fields (comma seperated)</label>
+    </div>
+
+    <!-- Number input -->
+    <!-- <div class="form-outline mb-4">
+        <input type="number" id="form6Example6" class="form-control" />
+        <label class="form-label" for="form6Example6">Phone</label>
+    </div> -->
+
+    <!-- Message input -->
+    <div class="form-outline mb-4">
+        <textarea class="form-control" id="Description" rows="4"></textarea>
+        <label class="form-label" for="form6Example9">Description</label>
+    </div>
+
+    <!-- Checkbox -->
+    <!-- <div class="form-check d-flex justify-content-center mb-4">
+        <input class="form-check-input me-2" type="checkbox" value="" id="form6Example8" checked />
+        <label class="form-check-label" for="form6Example8"> Create an account? </label>
+    </div> -->
+
+    <!-- Submit button -->
+    <div class="header">
+        <button type="submit">Insert Paper</button>
+    </div>
+</form>
+{% endblock content %}
