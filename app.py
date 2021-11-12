@@ -7,6 +7,8 @@ app = Flask(__name__)
 app.secret_key = "hi there"
 user = User()
 
+current_theme = 1
+
 conferences = [{"publisher": "IEEE"}, {"publisher": "IOS Press"}, {
     "publisher": "IEEE Computer Society"}, {"publisher": "Springer"}]
 
@@ -16,12 +18,12 @@ topics = [{"subject": "Machine Learning"}, {
 
 @app.route('/')
 def index():
-    return render_template('index.html', theme=1)
+    return render_template('index.html', theme=current_theme)
 
 
 @app.route('/login')
 def login():
-    return render_template('login.html')
+    return render_template('login.html', theme=current_theme)
 
 
 @app.route('/login/ans', methods=['POST', 'GET'])
@@ -31,9 +33,9 @@ def login_ans():
     pwd = request.form['password']
     a = user.login(name, pwd)
     if a == 1:
-        return render_template('org_insertion.html', theme=1)
+        return render_template('org_insertion.html', theme=current_theme)
     elif a == -1:
-        return render_template('org_insertion.html', theme=1)
+        return render_template('org_insertion.html', theme=current_theme)
     elif a == -2:
         return render_template('login.html', info="invalid username")
     elif a == -3:
@@ -61,7 +63,7 @@ def register_user():
 
 @app.route('/register')
 def register():
-    return render_template('registration.html')
+    return render_template('registration.html', theme=current_theme)
 
 
 @app.route('/register/ans', methods=['POST', 'GET'])
@@ -74,7 +76,7 @@ def register_ans():
     if check == -1:
         return render_template('registration.html', info='Username already exixsts!')
     elif check == -2:
-        return render_template('registration.html', info=' Email already exists!')
+        return render_template('registration.html', info='Email already exists!')
     else:
         return render_template('registration.html', info="Registered successfully !!!!")
 
@@ -84,7 +86,7 @@ def search():
     query = request.form['search_query']
     # return render_template('ans.html', info=query)
     posts = fetch_from_db(query)
-    return render_template('home.html', posts=posts, title="Paper Ranker", theme=1, conferencesList=conferences, topicList=topics)
+    return render_template('home.html', posts=posts, title="Paper Ranker", theme=current_theme, conferencesList=conferences, topicList=topics)
 
 
 @app.route('/org_insertion', methods=['POST', 'GET'])
@@ -101,7 +103,7 @@ def org_insertion():
         details['keywords'] = request.form['field'].split(',')
         # print(details)
         insert_paper(details)
-        return render_template('org_insertion.html', theme=1)
+        return render_template('org_insertion.html', theme=current_theme)
 
     else:
         return render_template('login.html', info='You are not logged in')
@@ -110,7 +112,7 @@ def org_insertion():
 @app.route('/logout')
 def log_out():
     user.logout()
-    return render_template('login.html', theme=1)
+    return render_template('login.html', theme=current_theme)
 
 
 if __name__ == "__main__":

@@ -3,7 +3,11 @@
 
 <head>
     <title>Free Thinkers</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='loginstyle.css') }}">
+    {% if theme == 1 %}
+    <link rel="stylesheet" href="{{url_for('static', filename='loginstyle.css')}}">
+    {% else %}
+    <link rel="stylesheet" href="{{url_for('static', filename='loginstyledark.css')}}">
+    {% endif %}
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 

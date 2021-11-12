@@ -1,9 +1,13 @@
 {% extends "layout.html" %} {% block content %}
+<div class="header">
+    <a href="{{ url_for('index') }}"><button>Home</button></a>
+    <a href="{{ url_for('login') }}"><button>Login</button></a>
+</div>
+<!-- <div class="header"><button><a href="/">Search</a></button></div>
+<div class="header"><button><a href="/login">Login</a></button></div> -->
 <h1>Insert a new paper</h1>
 <br>
 <form action="/org_insertion" method="post">
-
-    <!-- 2 column grid layout with text inputs for the first and last names -->
     <div class="row mb-4">
         <div class="col">
             <div class="form-outline">
@@ -19,25 +23,16 @@
         </div>
     </div>
 
-    <!-- Text input -->
     <div class="form-outline mb-4">
         <input type="text" id="venue" class="form-control" name="venue" />
         <label class="form-label" for="form6Example3">Venue</label>
     </div>
 
-    <!-- Text input -->
     <div class="form-outline mb-4">
         <input type="number" id="year" class="form-control" name="year" />
         <label class="form-label" for="form6Example4">Year</label>
-
-        <!-- <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker" inline="true">
-            <input placeholder="Select date" type="text" id="example" class="form-control">
-            <label for="example">Try me...</label>
-            <i class="fas fa-calendar input-prefix"></i>
-        </div> -->
     </div>
 
-    <!-- Email input -->
     <div class="form-outline mb-4">
         <input type="text" id="access" class="form-control" name="access" />
         <label class="form-label" for="form6Example5">Access</label>
@@ -58,27 +53,14 @@
         <label class="form-label" for="form6Example8">Fields (comma seperated)</label>
     </div>
 
-    <!-- Number input -->
-    <!-- <div class="form-outline mb-4">
-        <input type="number" id="form6Example6" class="form-control" />
-        <label class="form-label" for="form6Example6">Phone</label>
-    </div> -->
-
-    <!-- Message input -->
     <div class="form-outline mb-4">
         <textarea class="form-control" id="Description" rows="4"></textarea>
         <label class="form-label" for="form6Example9">Description</label>
     </div>
 
-    <!-- Checkbox -->
-    <!-- <div class="form-check d-flex justify-content-center mb-4">
-        <input class="form-check-input me-2" type="checkbox" value="" id="form6Example8" checked />
-        <label class="form-check-label" for="form6Example8"> Create an account? </label>
-    </div> -->
+    <button type="submit" class="btn btn-primary btn-block mb-4">Insert Paper</button>
 
-    <!-- Submit button -->
-    <div class="header">
-        <button type="submit">Insert Paper</button>
-    </div>
+    <!-- <a><button type="submit">Insert Paper</button></a> -->
+
 </form>
 {% endblock content %}
