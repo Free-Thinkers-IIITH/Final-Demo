@@ -342,7 +342,57 @@ div .dot{
     left:80%;
     animation: animate 9s linear infinite;
 }
+.animation div:nth-child(31){
+    top:220%;
+    left:20%;
+    animation: animate 8s linear infinite;
+}
 
+.animation div:nth-child(32){
+    top:260%;
+    left:80%;
+    animation: animate 10s linear infinite;
+}
+.animation div:nth-child(33){
+    top:240%;
+    left:40%;
+    animation: animate 5s linear infinite;
+}
+.animation div:nth-child(34){
+    top:266%;
+    left:30%;
+    animation: animate 7s linear infinite;
+}
+.animation div:nth-child(35){
+    top:290%;
+    left:10%;
+    animation: animate 9s linear infinite;
+}
+.animation div:nth-child(36){
+    top:230%;
+    left:60%;
+    animation: animate 5s linear infinite;
+}
+.animation div:nth-child(37){
+    top:270%;
+    left:20%;
+    animation: animate 8s linear infinite;
+}
+.animation div:nth-child(38){
+    top:275%;
+    left:60%;
+    animation: animate 10s linear infinite;
+}
+.animation div:nth-child(39){
+    top:250%;
+    left:50%;
+    animation: animate 6s linear infinite;
+}
+.animation div:nth-child(40){
+    top:245%;
+    left:20%;
+    animation: animate 10s linear infinite;
+}
 @keyframes animate {
     0%{
         transform: scale(0) translateY(0) rotate(70deg);

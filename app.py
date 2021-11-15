@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, url_for
+from flask_paginate import Pagination, get_page_args
 from fetch import fetch_from_db
 from datetime import datetime
 from user_management import User
@@ -7,6 +8,7 @@ from insert_paper import insert_paper
 app = Flask(__name__)
 app.secret_key = "hi there"
 user = User()
+posts = []
 
 current_theme = 0
 conferences = [{"publisher": "IEEE"}, {"publisher": "IOS Press"}, {
@@ -18,6 +20,8 @@ topics = [{"subject": "Machine Learning"}, {
 @app.route('/')
 def index():
     global current_theme
+    global posts
+    posts = []
     if current_theme == 0:
     	return render_template('index.html', theme=current_theme+1, info="Switch to Dark", datetime = str(datetime.now()))
     else:
@@ -26,6 +30,8 @@ def index():
 @app.route('/mode')
 def mode():
     global current_theme
+    global posts
+    posts = []
     current_theme = 1 - current_theme
     if current_theme == 0:
     	return render_template('index.html', theme=current_theme+1, info="Switch to Dark")
@@ -92,13 +98,21 @@ def register_ans():
     else:
         return render_template('registration.html', info="Registered successfully !!!!",theme=current_theme+1)
 
+def get_posts(posts, offset=0, per_page=10):
+    return posts[offset: offset + per_page]
 
 @app.route('/search', methods=['POST', 'GET'])
 def search():
-    query = request.form['search_query']
-    # return render_template('ans.html', info=query)
-    posts = fetch_from_db(query)
-    return render_template('home.html', posts=posts, title="Paper Ranker", theme=current_theme+1, conferencesList=conferences, topicList=topics)
+    global posts
+    if len(posts)==0:
+    	query = request.form['search_query']
+    	posts = fetch_from_db(query)
+    page, per_page, offset = get_page_args()
+    total = len(posts)
+    pagination_posts = get_posts(posts, offset=offset, per_page=per_page)
+    pagination = Pagination(page=page, per_page=per_page, total=total,
+                            css_framework='bootstrap4')
+    return render_template('home.html', posts=pagination_posts, title="Paper Ranker", theme=current_theme+1, conferencesList=conferences, topicList=topics,page=page, per_page=per_page, pagination=pagination,)
 
 
 @app.route('/org_insertion', methods=['POST', 'GET'])
