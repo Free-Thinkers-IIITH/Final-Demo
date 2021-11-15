@@ -7,7 +7,10 @@ html {
 }
 
 body {
+
     background: var(--body-background);
+    background: cover;
+    background-color: white;
     color: #333333;
     margin: 0;
 }
@@ -70,7 +73,8 @@ h6 {
 }
 
 .form-outline {
-    background: #ffffff;
+    background: transparent;
+    position: relative;
     padding: 15px 20px;
     border: 1px solid #dddddd;
     border-radius: 3px;
@@ -177,7 +181,7 @@ a.article-title:hover {
     border : 2px solid rgba(5, 5, 5, 0.7);
     border-radius: 50px;
     position: absolute;
-    top :10%;
+    top : 10%;
     left : 10%;
     animation: animate 4s linear infinite;
 }
@@ -264,6 +268,82 @@ div .dot{
 }
 .animation div:nth-child(15){
     top:90%;
+    left:80%;
+    animation: animate 9s linear infinite;
+}
+.animation div:nth-child(16){
+    top:120%;
+    left:20%;
+    animation: animate 8s linear infinite;
+}
+
+.animation div:nth-child(17){
+    top:160%;
+    left:80%;
+    animation: animate 10s linear infinite;
+}
+.animation div:nth-child(18){
+    top:140%;
+    left:40%;
+    animation: animate 5s linear infinite;
+}
+.animation div:nth-child(19){
+    top:166%;
+    left:30%;
+    animation: animate 7s linear infinite;
+}
+.animation div:nth-child(20){
+    top:190%;
+    left:10%;
+    animation: animate 9s linear infinite;
+}
+.animation div:nth-child(21){
+    top:130%;
+    left:60%;
+    animation: animate 5s linear infinite;
+}
+.animation div:nth-child(22){
+    top:170%;
+    left:20%;
+    animation: animate 8s linear infinite;
+}
+.animation div:nth-child(23){
+    top:175%;
+    left:60%;
+    animation: animate 10s linear infinite;
+}
+.animation div:nth-child(24){
+    top:150%;
+    left:50%;
+    animation: animate 6s linear infinite;
+}
+.animation div:nth-child(25){
+    top:145%;
+    left:20%;
+    animation: animate 10s linear infinite;
+}
+.animation div:nth-child(26){
+    top:110%;
+    left:90%;
+    animation: animate 9s linear infinite;
+}
+.animation div:nth-child(27){
+    top:120%;
+    left:70%;
+    animation: animate 7s linear infinite;
+}
+.animation div:nth-child(28){
+    top: 120%;
+    left: 20%;
+    animation: animate 8s linear infinite;
+}
+.animation div:nth-child(29){
+    top:160%;
+    left:5%;
+    animation: animate 6s linear infinite;
+}
+.animation div:nth-child(30){
+    top:190%;
     left:80%;
     animation: animate 9s linear infinite;
 }

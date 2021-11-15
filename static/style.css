@@ -43,7 +43,6 @@
     color: white;
 }
 body{
-    /*background-image:  url('panther.jpg');*/
     background: gray;
     background-size: cover;
 	background-position: top center;
@@ -149,8 +148,9 @@ h1{
     font-size: 1rem;
     color: white;
 }
-
-
+.header a button:hover{
+	color:black;
+}
 
 div .dot{
     height : 10px;

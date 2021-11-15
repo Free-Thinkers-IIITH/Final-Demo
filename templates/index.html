@@ -2,13 +2,14 @@
 <html lang="en">
 
 <head>
-    <title>Free Thinkers</title>
+    <title>Free Thinkers | Home</title>
     {% if theme == 1 %}
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     {% else %}
     <link rel="stylesheet" href="{{url_for('static', filename='styledark.css')}}">
     {% endif %}
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='/image/favicon.png')}}">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 
@@ -43,9 +44,11 @@
                 <input name="search_query" type="text" class="input_search" placeholder="Enter a Keyword">
             </div>
         </form>
-        <!-- <div>
-            <a href="{{ url_for('login') }}">Go to login page</a>
-        </div> -->
+        
+    </div>
+    
+    <div class="header">
+    	<a href="{{ url_for('mode') }}"><button>{{ info }}</button></a>
     </div>
 
 </body>
