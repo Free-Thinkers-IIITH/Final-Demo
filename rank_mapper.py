@@ -16,5 +16,5 @@ def get_rank(conf_name):
 # build_rank_dict('ranks2.json','Acronym')
 # build_rank_dict('ranks2.json','Standard Name')
 
-for conf in conf_rank:
-    print(conf, conf_rank[conf])
+# for conf in conf_rank:
+#     print(conf, conf_rank[conf])

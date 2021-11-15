@@ -5,6 +5,7 @@ from datetime import datetime
 from user_management import User
 from insert_paper import insert_paper
 from dblp import fetch_dblp
+from rank_mapper import build_rank_dict
 import threading
 
 app = Flask(__name__)
@@ -19,6 +20,11 @@ conferences = [{"publisher": "IEEE"}, {"publisher": "IOS Press"}, {
 topics = [{"subject": "Machine Learning"}, {
     "subject": "Cyber Security"}, {"subject": "Internet of things"}]
 
+#Build ranks for papers
+build_rank_dict('ranks1.json','Acronym')
+build_rank_dict('ranks1.json','Standard Name')
+build_rank_dict('ranks2.json','Acronym')
+build_rank_dict('ranks2.json','Standard Name')
 
 @app.route('/')
 def index():

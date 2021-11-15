@@ -3,6 +3,16 @@ import json
 import time
 from rank_mapper import build_rank_dict, get_rank
 
+#rank-score dictionary
+# rank_score = dict()
+# rank_score['A+'] = 5
+# rank_score['A*'] = 5
+# rank_score['A'] = 4
+# rank_score['A-'] = 3
+# rank_score['B'] = 2
+# rank_score['C'] = 1
+#for all key starting with 'National' set rank to 0
+
 
 def fetch_dblp(topic, hit_count = 100):
     url = "https://dblp.org/search/publ/api"
@@ -34,13 +44,24 @@ def fetch_dblp(topic, hit_count = 100):
                         author_lst.append(a['text'])
                 paper_info['authors'] = author_lst
                 paper_info['venue'] = entry['info']['venue']
+                #skip if no venue
+                if paper_info['venue'] == '':
+                    continue
                 paper_info['year'] = entry['info']['year']
                 paper_info['url'] = entry['info']['url']
+                #skip if no url
+                if paper_info['url'] == '':
+                    continue
                 paper_info['rank'] = get_rank(
                     paper_info['venue'].split()[0].lower())
+                # skip papers with no rank
+                if paper_info['rank'] is None:
+                    continue
                 paper_list.append(paper_info)
         # write to file
         # open(topic, 'w').write(json.dumps(paper_list))
+        #sort papers by rank-score
+        # paper_list.sort(key=lambda x: rank_score[x['rank']])
         return paper_list
 
 
