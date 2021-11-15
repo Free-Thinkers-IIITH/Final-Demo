@@ -4,6 +4,8 @@ from fetch import fetch_from_db
 from datetime import datetime
 from user_management import User
 from insert_paper import insert_paper
+from dblp import fetch_dblp
+import threading
 
 app = Flask(__name__)
 app.secret_key = "hi there"
@@ -17,15 +19,17 @@ conferences = [{"publisher": "IEEE"}, {"publisher": "IOS Press"}, {
 topics = [{"subject": "Machine Learning"}, {
     "subject": "Cyber Security"}, {"subject": "Internet of things"}]
 
+
 @app.route('/')
 def index():
     global current_theme
     global posts
     posts = []
     if current_theme == 0:
-    	return render_template('index.html', theme=current_theme+1, info="Switch to Dark", datetime = str(datetime.now()))
+        return render_template('index.html', theme=current_theme+1, info="Switch to Dark", datetime=str(datetime.now()))
     else:
-    	return render_template('index.html', theme=current_theme+1, info="Switch to Light", datetime = str(datetime.now()))
+        return render_template('index.html', theme=current_theme+1, info="Switch to Light", datetime=str(datetime.now()))
+
 
 @app.route('/mode')
 def mode():
@@ -34,9 +38,9 @@ def mode():
     posts = []
     current_theme = 1 - current_theme
     if current_theme == 0:
-    	return render_template('index.html', theme=current_theme+1, info="Switch to Dark")
+        return render_template('index.html', theme=current_theme+1, info="Switch to Dark")
     else:
-    	return render_template('index.html', theme=current_theme+1, info="Switch to Light") 
+        return render_template('index.html', theme=current_theme+1, info="Switch to Light")
 
 
 @app.route('/login')
@@ -55,9 +59,9 @@ def login_ans():
     elif a == -1:
         return render_template('org_insertion.html', theme=current_theme+1)
     elif a == -2:
-        return render_template('login.html', info="Invalid Username",theme=current_theme+1)
+        return render_template('login.html', info="Invalid Username", theme=current_theme+1)
     elif a == -3:
-        return render_template('login.html', info="Invalid Password",theme=current_theme+1)
+        return render_template('login.html', info="Invalid Password", theme=current_theme+1)
     elif a == -4:
         return render_template('login.html', info="Another user is logged in", theme=current_theme+1)
 
@@ -72,7 +76,7 @@ def register_user():
     a = user.register(request.form['username'], request.form['password'],
                       request.form['email'], request.form['department'])
     if a == 1:
-        return render_template('login.html',theme=current_theme+1)
+        return render_template('login.html', theme=current_theme+1)
     elif a == -1:
         return "Username taken"
     elif a == -2:
@@ -92,27 +96,33 @@ def register_ans():
     department = request.form['department']
     check = user.register(username, password, email, department)
     if check == -1:
-        return render_template('registration.html', info='Username already exists!',theme=current_theme+1)
+        return render_template('registration.html', info='Username already exists!', theme=current_theme+1)
     elif check == -2:
-        return render_template('registration.html', info='Email already exists!',theme=current_theme+1)
+        return render_template('registration.html', info='Email already exists!', theme=current_theme+1)
     else:
-        return render_template('registration.html', info="Registered successfully !!!!",theme=current_theme+1)
+        return render_template('registration.html', info="Registered successfully !!!!", theme=current_theme+1)
 
-def get_posts(posts, offset=0, per_page=10):
+
+def get_posts(posts, offset=0, per_page=5):
     return posts[offset: offset + per_page]
+
 
 @app.route('/search', methods=['POST', 'GET'])
 def search():
     global posts
-    if len(posts)==0:
-    	query = request.form['search_query']
-    	posts = fetch_from_db(query)
+    if len(posts) == 0:
+        query = request.form['search_query']
+        # posts = fetch_from_db(query)
+        # create a thread to fetch the data
+        t = threading.Thread(target=fetch_from_db, args=(query,))
+        t.start()
+        posts = fetch_dblp(query, 1000)
     page, per_page, offset = get_page_args()
     total = len(posts)
     pagination_posts = get_posts(posts, offset=offset, per_page=per_page)
     pagination = Pagination(page=page, per_page=per_page, total=total,
                             css_framework='bootstrap4')
-    return render_template('home.html', posts=pagination_posts, title="Paper Ranker", theme=current_theme+1, conferencesList=conferences, topicList=topics,page=page, per_page=per_page, pagination=pagination,)
+    return render_template('home.html', posts=pagination_posts, title="Paper Ranker", theme=current_theme+1, conferencesList=conferences, topicList=topics, page=page, per_page=per_page, pagination=pagination,)
 
 
 @app.route('/org_insertion', methods=['POST', 'GET'])
@@ -132,7 +142,7 @@ def org_insertion():
         return render_template('org_insertion.html', theme=current_theme+1)
 
     else:
-        return render_template('login.html', info='You are not logged in',theme=current_theme+1)
+        return render_template('login.html', info='You are not logged in', theme=current_theme+1)
 
 
 @app.route('/logout')

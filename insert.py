@@ -8,7 +8,7 @@ def get_papers(keyword):
     url = "https://dblp.org/search/publ/api" 
     params = { 
         "q": keyword, 
-        "h": "30", 
+        "h": "1000", 
         "format": "json" 
     } 
     query_string = urllib.parse.urlencode( params ) 
