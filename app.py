@@ -4,6 +4,7 @@ from fetch import fetch_from_db
 from datetime import datetime
 from user_management import User
 from insert_paper import insert_paper
+from rank_mapper import build_rank_dict
 
 app = Flask(__name__)
 app.secret_key = "hi there"
@@ -16,6 +17,11 @@ conferences = [{"publisher": "IEEE"}, {"publisher": "IOS Press"}, {
 
 topics = [{"subject": "Machine Learning"}, {
     "subject": "Cyber Security"}, {"subject": "Internet of things"}]
+
+build_rank_dict('ranks1.json','Acronym')
+build_rank_dict('ranks1.json','Standard Name')
+build_rank_dict('ranks2.json','Acronym')
+build_rank_dict('ranks2.json','Standard Name')
 
 @app.route('/')
 def index():

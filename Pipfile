@@ -9,6 +9,7 @@ pymongo = "*"
 dnspython = "*"
 gunicorn = "*"
 bcrypt = "*"
+flask-paginate = "*"
 
 [dev-packages]
 

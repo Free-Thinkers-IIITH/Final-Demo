@@ -2,6 +2,7 @@ from pymongo import MongoClient
 from pprint import pprint
 import json
 import urllib.request
+from rank_mapper import get_rank
 
 def get_papers(keyword):
     '''This function gets data from dblp api for a particular keyword and returns it'''
@@ -23,12 +24,12 @@ def get_papers(keyword):
     # f.close()
     # return data
 
-def get_rank(conferences,name):
-    '''This function returns the rank of a particular conference'''
-    for conf in conferences:
-        if conf['name']==name:
-            return conf['rank']
-    return None
+# def get_rank(conferences,name):
+#     '''This function returns the rank of a particular conference'''
+#     for conf in conferences:
+#         if conf['name']==name:
+#             return conf['rank']
+#     return None
 
 def map_dblp_data(raw_data,keyword):
     '''This function maps data fetched from dblp api to the data model of the db'''
@@ -64,7 +65,7 @@ def insert_dblp(keyword):
     db=client.paper_db
     papers_collec=db['papers']
     #Get conference list
-    conference_list=list(db['conferences'].find())
+    # conference_list=list(db['conferences'].find())
     #Get papers list from dblp api
     paper_list=get_papers(keyword)
     paper_list=paper_list['result']['hits']['hit']
@@ -73,7 +74,8 @@ def insert_dblp(keyword):
     #Add a rank field to the papers that are of Conference and Workshop Papers type
     for paper in paper_list:
         if 'venue' in paper['info'] and paper['info']['type']=='Conference and Workshop Papers':
-            rank=get_rank(conference_list,paper['info']['venue'])
+            # rank=get_rank(conference_list,paper['info']['venue'])
+            rank = get_rank(paper['info']['venue'])
             if rank is None:
                 paper['rank']='NA'
             else:
