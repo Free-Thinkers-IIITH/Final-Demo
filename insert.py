@@ -75,7 +75,7 @@ def insert_dblp(keyword):
     for paper in paper_list:
         if 'venue' in paper['info'] and paper['info']['type']=='Conference and Workshop Papers':
             # rank=get_rank(conference_list,paper['info']['venue'])
-            rank = get_rank(paper['info']['venue'])
+            rank = get_rank(paper['info']['venue'].split()[0].lower())
             if rank is None:
                 paper['rank']='NA'
             else:
